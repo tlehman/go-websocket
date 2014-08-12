@@ -16,6 +16,7 @@
       var offset = 20;
       var spacing = boardWidth/boardSize;
       var currentBlack = true;
+      var pieces = create2DArray(boardSize);
 
       function drawBoard() {
         var canvas = document.getElementById('canvas');
@@ -50,8 +51,12 @@
         var r = 15;
 
         // find nearest vertex
-        var nx = Math.round((x-offset)/spacing)*spacing + offset;
-        var ny = Math.round((y-offset)/spacing)*spacing + offset;
+        var idx = Math.round((x-offset)/spacing);
+        var idy = Math.round((y-offset)/spacing);
+        pieces[idx][idy] = currentBlack ? 0 : 1;
+        log2DArray(pieces);
+        var nx = idx*spacing + offset;
+        var ny = idy*spacing + offset;
 
         if(nx > offset + boardWidth || ny > offset + boardWidth) {
           return 1;
@@ -67,6 +72,32 @@
         ctx.strokeStyle = '#555555';
         ctx.stroke();
         ctx.closePath();
+      }
+
+      function create2DArray(size) {
+        var board = new Array(size);
+
+        for(var i = 0; i < size; i++) {
+          board[i] = new Array(size);
+          for(var j = 0; j < size; j++) {
+            board[i][j] = null;
+          }
+        }
+
+        return board;
+      }
+
+      function log2DArray(ary) {
+        var strAry = "";
+        for(var i = 0; i < ary.length; i++) {
+          for(var j = 0; j < ary.length; j++) {
+            var piece = (ary[i][j] === null) ? '.' : ary[i][j];
+
+            strAry += piece + " ";
+          }
+          strAry += "\n";
+        }
+        console.log(strAry);
       }
 
       drawBoard();
