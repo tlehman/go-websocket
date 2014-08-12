@@ -2,7 +2,7 @@
   <head>
     <title>Go through WebSocket</title>
     <style media="screen">
-      * { margin:0; padding:0; } /* to remove the top and left whitespace */
+      /** { margin:0; padding:0; } /* to remove the top and left whitespace */*/
       html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
       canvas { display:block; } /* To remove the scrollbars */
     </style>
@@ -18,19 +18,25 @@
 
         var ctx = canvas.getContext('2d');
 
-        var boardWidth = 400;  // 400px-by-400px
-        var boardSize = 9;     // 9x9 beginner board
-        var margin = 20;       // not a CSS margin
+        var boardWidth = 600;  // 400px-by-400px
+        var boardSize = 13;    // 13x13 board
+        var offset = 20;
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 2;
 
         var spacing = boardWidth/boardSize;
 
-        for(var i = 0; i < boardSize; i++) {
+        for(var i = 0; i <= boardSize; i++) {
           ctx.beginPath();
-          ctx.moveTo(margin + i*spacing, margin);
-          ctx.lineTo(margin + i*spacing, boardWidth);
+          // draw column
+          ctx.moveTo(offset + i*spacing, offset);
+          ctx.lineTo(offset + i*spacing, boardWidth + offset);
+
+          // draw row
+          ctx.moveTo(offset, i*spacing + offset);
+          ctx.lineTo(offset + boardWidth, i*spacing + offset);
+
           ctx.stroke();
         }
       }
