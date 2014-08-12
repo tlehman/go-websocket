@@ -47,11 +47,11 @@
 
         var x = event.x;
         var y = event.y;
-
+        var r = 10;
         ctx.moveTo(x,y);
-        ctx.arc(x,y,10,2*Math.PI,false);
+        ctx.arc(x,y,r,2*Math.PI,false);
         ctx.fillStyle = 'black';
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 3;
         ctx.strokeStyle = 'black';
         ctx.stroke();
       }
