@@ -15,6 +15,7 @@
       var boardSize = 15;    // 15x15 board
       var offset = 20;
       var spacing = boardWidth/boardSize;
+      var currentBlack = true;
 
       function drawBoard() {
         var canvas = document.getElementById('canvas');
@@ -25,7 +26,6 @@
 
         ctx.strokeStyle = '#AAAAAA';
         ctx.lineWidth = 2;
-
 
         for(var i = 0; i <= boardSize; i++) {
           ctx.beginPath();
@@ -47,22 +47,28 @@
 
         var x = event.x;
         var y = event.y;
-        var r = 10;
+        var r = 15;
 
         // find nearest vertex
-        var nx = Math.floor((x-offset)/spacing)*spacing + offset;
-        var ny = Math.floor((y-offset)/spacing)*spacing + offset;
+        var nx = Math.round((x-offset)/spacing)*spacing + offset;
+        var ny = Math.round((y-offset)/spacing)*spacing + offset;
+
+        if(nx > offset + boardWidth || ny > offset + boardWidth) {
+          return 1;
+        }
 
         console.log("x: " + x + "  nx: " + nx);
 
-        ctx.moveTo(nx,ny);
-        ctx.arc(nx,ny,r,2*Math.PI,false);
-
-        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo(nx+r,ny);
+        ctx.arc(nx,ny,r,0,2*Math.PI,false);
+        ctx.fillStyle = currentBlack ? 'black' : 'white';
+        currentBlack = !currentBlack;
         ctx.fill();
         ctx.lineWidth = 3;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = '#555555';
         ctx.stroke();
+        ctx.endPath();
       }
 
       drawBoard();
