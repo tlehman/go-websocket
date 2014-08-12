@@ -11,8 +11,8 @@
     <canvas id="canvas" onclick="putPiece(event)"></canvas>
 
     <script type="text/javascript" charset="utf-8">
-      var boardWidth = 700;  // 400px-by-400px
-      var boardSize = 15;    // 15x15 board
+      var boardWidth = 400;  // 400px-by-400px
+      var boardSize = 9;   // 9x9 board
       var offset = 20;
       var spacing = boardWidth/boardSize;
       var currentBlack = true;
@@ -28,15 +28,15 @@
         ctx.strokeStyle = '#AAAAAA';
         ctx.lineWidth = 2;
 
-        for(var i = 0; i <= boardSize; i++) {
+        for(var i = 0; i < boardSize; i++) {
           ctx.beginPath();
           // draw column
           ctx.moveTo(offset + i*spacing, offset);
-          ctx.lineTo(offset + i*spacing, boardWidth + offset);
+          ctx.lineTo(offset + i*spacing, boardWidth-spacing + offset);
 
           // draw row
           ctx.moveTo(offset, i*spacing + offset);
-          ctx.lineTo(offset + boardWidth, i*spacing + offset);
+          ctx.lineTo(offset + boardWidth-spacing, i*spacing + offset);
 
           ctx.stroke();
         }
@@ -53,14 +53,16 @@
         // find nearest vertex
         var idx = Math.round((x-offset)/spacing);
         var idy = Math.round((y-offset)/spacing);
-        pieces[idx][idy] = currentBlack ? 0 : 1;
-        log2DArray(pieces);
+
         var nx = idx*spacing + offset;
         var ny = idy*spacing + offset;
 
-        if(nx > offset + boardWidth || ny > offset + boardWidth) {
+        if(idx > boardSize || idy > boardSize || pieces[idy][idx] !== null) {
           return 1;
         }
+
+        pieces[idy][idx] = currentBlack ? 0 : 1;
+        log2DArray(pieces);
 
         ctx.beginPath();
         ctx.moveTo(nx+r,ny);
