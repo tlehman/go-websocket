@@ -50,13 +50,14 @@
         var y = event.y;
         var r = 15;
 
-        // find nearest vertex
         var idx = Math.round((x-offset)/spacing);
         var idy = Math.round((y-offset)/spacing);
 
+        // find nearest vertex
         var nx = idx*spacing + offset;
         var ny = idy*spacing + offset;
 
+        // do not proceed if out of range or already set
         if(idx > boardSize || idy > boardSize || pieces[idy][idx] !== null) {
           return 1;
         }
@@ -67,8 +68,10 @@
         ctx.beginPath();
         ctx.moveTo(nx+r,ny);
         ctx.arc(nx,ny,r,0,2*Math.PI,false);
+
         ctx.fillStyle = currentBlack ? 'black' : 'white';
         currentBlack = !currentBlack;
+
         ctx.fill();
         ctx.lineWidth = 3;
         ctx.strokeStyle = '#555555';
