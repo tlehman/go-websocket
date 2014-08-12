@@ -57,8 +57,6 @@
           return 1;
         }
 
-        console.log("x: " + x + "  nx: " + nx);
-
         ctx.beginPath();
         ctx.moveTo(nx+r,ny);
         ctx.arc(nx,ny,r,0,2*Math.PI,false);
@@ -68,7 +66,7 @@
         ctx.lineWidth = 3;
         ctx.strokeStyle = '#555555';
         ctx.stroke();
-        ctx.endPath();
+        ctx.closePath();
       }
 
       drawBoard();
