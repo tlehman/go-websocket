@@ -8,10 +8,10 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" onclick="putPiece(event)"></canvas>
 
     <script type="text/javascript" charset="utf-8">
-      function draw() {
+      function drawBoard() {
         var canvas = document.getElementById('canvas');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -22,7 +22,7 @@
         var boardSize = 13;    // 13x13 board
         var offset = 20;
 
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = '#AAAAAA';
         ctx.lineWidth = 2;
 
         var spacing = boardWidth/boardSize;
@@ -41,7 +41,22 @@
         }
       }
 
-      draw();
+      function putPiece(event) {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var x = event.x;
+        var y = event.y;
+
+        ctx.moveTo(x,y);
+        ctx.arc(x,y,10,2*Math.PI,false);
+        ctx.fillStyle = 'black';
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+      }
+
+      drawBoard();
     </script>
   </body>
 </html>
