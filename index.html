@@ -11,6 +11,11 @@
     <canvas id="canvas" onclick="putPiece(event)"></canvas>
 
     <script type="text/javascript" charset="utf-8">
+      var boardWidth = 700;  // 400px-by-400px
+      var boardSize = 15;    // 15x15 board
+      var offset = 20;
+      var spacing = boardWidth/boardSize;
+
       function drawBoard() {
         var canvas = document.getElementById('canvas');
         canvas.width = window.innerWidth;
@@ -18,14 +23,9 @@
 
         var ctx = canvas.getContext('2d');
 
-        var boardWidth = 600;  // 400px-by-400px
-        var boardSize = 13;    // 13x13 board
-        var offset = 20;
-
         ctx.strokeStyle = '#AAAAAA';
         ctx.lineWidth = 2;
 
-        var spacing = boardWidth/boardSize;
 
         for(var i = 0; i <= boardSize; i++) {
           ctx.beginPath();
@@ -48,9 +48,18 @@
         var x = event.x;
         var y = event.y;
         var r = 10;
-        ctx.moveTo(x,y);
-        ctx.arc(x,y,r,2*Math.PI,false);
+
+        // find nearest vertex
+        var nx = Math.floor((x-offset)/spacing)*spacing + offset;
+        var ny = Math.floor((y-offset)/spacing)*spacing + offset;
+
+        console.log("x: " + x + "  nx: " + nx);
+
+        ctx.moveTo(nx,ny);
+        ctx.arc(nx,ny,r,2*Math.PI,false);
+
         ctx.fillStyle = 'black';
+        ctx.fill();
         ctx.lineWidth = 3;
         ctx.strokeStyle = 'black';
         ctx.stroke();
