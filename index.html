@@ -18,16 +18,21 @@
 
         var ctx = canvas.getContext('2d');
 
+        var boardWidth = 400;  // 400px-by-400px
+        var boardSize = 9;     // 9x9 beginner board
+        var margin = 20;       // not a CSS margin
+
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 2;
 
+        var spacing = boardWidth/boardSize;
 
-        ctx.beginPath();
-        ctx.moveTo(20,0);
-        ctx.lineTo(20,800);
-        ctx.stroke();
-
-
+        for(var i = 0; i < boardSize; i++) {
+          ctx.beginPath();
+          ctx.moveTo(margin + i*spacing, margin);
+          ctx.lineTo(margin + i*spacing, boardWidth);
+          ctx.stroke();
+        }
       }
 
       draw();
