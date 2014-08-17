@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
   <head>
     <title>Go through WebSocket</title>
     <style media="screen">
@@ -8,104 +9,31 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas" onclick="putPiece(event)"></canvas>
+    <canvas id="canvas"></canvas>
 
-    <script type="text/javascript" charset="utf-8">
-      var boardWidth = 400;  // 400px-by-400px
-      var boardSize = 9;   // 9x9 board
-      var offset = 20;
-      var spacing = boardWidth/boardSize;
-      var currentBlack = true;
-      var pieces = create2DArray(boardSize);
+    <div id="scores">
+      <table>
+        <tr>
+          <td>Current Color: </td>
+          <td>
+            <span id="currentColor">black</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Black score: </td>
+          <td>
+            <span id="blackScore">0</span>
+          </td>
+        </tr>
+        <tr>
+          <td>White score: </td>
+          <td>
+            <span id="blackScore">0</span>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-      function drawBoard() {
-        var canvas = document.getElementById('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        var ctx = canvas.getContext('2d');
-
-        ctx.strokeStyle = '#AAAAAA';
-        ctx.lineWidth = 2;
-
-        for(var i = 0; i < boardSize; i++) {
-          ctx.beginPath();
-          // draw column
-          ctx.moveTo(offset + i*spacing, offset);
-          ctx.lineTo(offset + i*spacing, boardWidth-spacing + offset);
-
-          // draw row
-          ctx.moveTo(offset, i*spacing + offset);
-          ctx.lineTo(offset + boardWidth-spacing, i*spacing + offset);
-
-          ctx.stroke();
-        }
-      }
-
-      function putPiece(event) {
-        var canvas = document.getElementById('canvas');
-        var ctx = canvas.getContext('2d');
-
-        var x = event.x;
-        var y = event.y;
-        var r = 15;
-
-        var idx = Math.round((x-offset)/spacing);
-        var idy = Math.round((y-offset)/spacing);
-
-        // find nearest vertex
-        var nx = idx*spacing + offset;
-        var ny = idy*spacing + offset;
-
-        // do not proceed if out of range or already set
-        if(idx > boardSize || idy > boardSize || pieces[idy][idx] !== null) {
-          return 1;
-        }
-
-        pieces[idy][idx] = currentBlack ? 0 : 1;
-        log2DArray(pieces);
-
-        ctx.beginPath();
-        ctx.moveTo(nx+r,ny);
-        ctx.arc(nx,ny,r,0,2*Math.PI,false);
-
-        ctx.fillStyle = currentBlack ? 'black' : 'white';
-        currentBlack = !currentBlack;
-
-        ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = '#555555';
-        ctx.stroke();
-        ctx.closePath();
-      }
-
-      function create2DArray(size) {
-        var board = new Array(size);
-
-        for(var i = 0; i < size; i++) {
-          board[i] = new Array(size);
-          for(var j = 0; j < size; j++) {
-            board[i][j] = null;
-          }
-        }
-
-        return board;
-      }
-
-      function log2DArray(ary) {
-        var strAry = "";
-        for(var i = 0; i < ary.length; i++) {
-          for(var j = 0; j < ary.length; j++) {
-            var piece = (ary[i][j] === null) ? '.' : ary[i][j];
-
-            strAry += piece + " ";
-          }
-          strAry += "\n";
-        }
-        console.log(strAry);
-      }
-
-      drawBoard();
-    </script>
+    <script type="text/javascript" src="go_game.js" charset="utf-8"></script>
   </body>
 </html>
