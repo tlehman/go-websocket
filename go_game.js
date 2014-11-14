@@ -116,7 +116,7 @@ var Board = {
     var connComp = new ComponentMap(grid, count, N);
 
     // iterate over components, destroying those with no liberties
-    var compIter = connComp.eachComponent(); 
+    var compIter = connComp.eachComponent();
     for(var comp = compIter(); comp !== null; comp = compIter()) {
       var numLibs = 0;
       // compute liberties of component
@@ -304,7 +304,7 @@ var ComponentMap = function(grid, count, numberComponents) {
   }
   // 0 <= N < (count^2)/2
 
-  // For each of the N vertices, we assign a 'color', implemented 
+  // For each of the N vertices, we assign a 'color', implemented
   // as an integer, two vertices have the same color iff they are
   // the same color.
 
