@@ -5,7 +5,8 @@
  */
 
 var Board = {
-  N: 0,
+  numVertices: 0,
+  numComponents: 0,
   count: 13,    /* 13x13 board */
   width: 600,   /* 500px square image */
   offset: 20,   /* 20px padding on upper left */
@@ -102,7 +103,7 @@ var Board = {
   putPiece: function(x,y) {
     var grid = this.grid;
     var count = this.count;
-    var N = this.N;
+    var numComponents = this.numComponents;
 
     var idx = this.pointToIndex(x);
     var idy = this.pointToIndex(y);
@@ -113,7 +114,7 @@ var Board = {
     this.setVertexAtIndex(idx,idy,this.currentColor);
 
     // find connected components
-    var connComp = new ComponentMap(grid, count, N);
+    var connComp = new ComponentMap(grid, count, numComponents);
 
     // iterate over components, destroying those with no liberties
     var compIter = connComp.eachComponent();
@@ -210,7 +211,7 @@ var Board = {
     v.neighbors.west  = (v.coords.x <= 0) ?             null : grid[v.coords.y][v.coords.x - 1];
 
     // keep track of number of vertices
-    this.N += 1;
+    this.numVertices += 1;
 
     // hook neighbors back up to v
     var n = v.neighbors.north;
@@ -304,7 +305,7 @@ var ComponentMap = function(grid, count, numberComponents) {
   }
   // 0 <= N < (count^2)/2
 
-  // For each of the N vertices, we assign a 'color', implemented
+  // For each of the vertices, we assign a 'color', implemented
   // as an integer, two vertices have the same color iff they are
   // the same color.
 

@@ -34,6 +34,9 @@ The `color` defaults to `null`, but can be switched to `black` or `white`.
 Each vertex has up to four edges, which can connect to adjacent vertices of the
 same color. This defines an implicit graph.
 
+Using the implicit graph, a `ComponentMap` object is used to find the connected 
+components, then expose an iterator that visits each component once.
+
 ![edges only to adjacent pieces of same color](img/edges.png)
 
 # Algorithms
