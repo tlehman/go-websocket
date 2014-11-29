@@ -295,7 +295,7 @@ var Vertex = function(x, y, color) {
 */
 var ComponentMap = function(grid, count) {
   // initialize an array of size numberComponents and populate with empty arrays
-  var components = new Array(numberComponents);
+  var components = undefined;
   var numberComponents = 0; 
 
   for(var i = 0; i < numberComponents; i++) {
@@ -314,6 +314,10 @@ var ComponentMap = function(grid, count) {
       if(v.isEmpty()) { break; }
 
       // TODO: find component that v belongs to
+      // check north
+      // check east
+      // check south
+      // check west
     }
   }
 
