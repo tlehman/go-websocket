@@ -6,7 +6,6 @@
 
 var Board = {
   numVertices: 0,
-  numComponents: 0,
   count: 13,    /* 13x13 board */
   width: 600,   /* 500px square image */
   offset: 20,   /* 20px padding on upper left */
@@ -103,7 +102,6 @@ var Board = {
   putPiece: function(x,y) {
     var grid = this.grid;
     var count = this.count;
-    var numComponents = this.numComponents;
 
     var idx = this.pointToIndex(x);
     var idy = this.pointToIndex(y);
@@ -114,7 +112,7 @@ var Board = {
     this.setVertexAtIndex(idx,idy,this.currentColor);
 
     // find connected components
-    var connComp = new ComponentMap(grid, count, numComponents);
+    var connComp = new ComponentMap(grid, count);
 
     // iterate over components, destroying those with no liberties
     var compIter = connComp.eachComponent();
@@ -295,20 +293,21 @@ var Vertex = function(x, y, color) {
       2. iterate over each component, finding all the empty spots on the edges
       3. probably something I didn't intend
 */
-var ComponentMap = function(grid, count, numberComponents) {
+var ComponentMap = function(grid, count) {
   // initialize an array of size numberComponents and populate with empty arrays
   var components = new Array(numberComponents);
-  var N = numberComponents;
+  var numberComponents = 0; 
 
   for(var i = 0; i < numberComponents; i++) {
     components[i] = [];
   }
-  // 0 <= N < (count^2)/2
+  // 0 <= numberComponents < (count^2)/2
 
-  // For each of the vertices, we assign a 'color', implemented
-  // as an integer, two vertices have the same color iff they are
-  // the same color.
-
+  // For each of the vertices, we assign a 'componentIndex', implemented
+  // as an integer.
+  //
+  // Two vertices have the same componentIndex iff they are
+  // the same color and adjacent.
   for(var i = 0; i < count; i++) {       // for each x coordinate
     for (var j = 0; j < count; j++) {    // for each y coordinate
       var v = grid[j][i];
@@ -319,7 +318,7 @@ var ComponentMap = function(grid, count, numberComponents) {
   }
 
   return {
-    numberComponents: N,
+    numberComponents: numberComponents,
     eachComponent: function() {
       var i = 0;
       return function() {
