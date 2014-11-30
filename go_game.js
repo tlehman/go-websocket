@@ -131,7 +131,7 @@ var Board = {
     this.clear();
     this.drawLines();
     this.drawPieces();
-    this.drawEdges();
+    //this.drawEdges();
     this.updateScores();
   },
 
@@ -295,31 +295,57 @@ var Vertex = function(x, y, color) {
 */
 var ComponentMap = function(grid, count) {
   // initialize an array of size numberComponents and populate with empty arrays
-  var components = undefined;
+  var components = [];
   var numberComponents = 0; 
-
-  for(var i = 0; i < numberComponents; i++) {
-    components[i] = [];
-  }
   // 0 <= numberComponents < (count^2)/2
 
-  // For each of the vertices, we assign a 'componentIndex', implemented
-  // as an integer.
-  //
-  // Two vertices have the same componentIndex iff they are
-  // the same color and adjacent.
+  var contains(S, x) {
+    return S.indexOf(x) > -1;
+  }
+
+  var findComponentContaining = function(u) {
+    // see bfs.md for better explanation of BFS algorithm
+    var R = [u];  // vertices Reached
+    var S = [];   // vertices Searched
+
+    while(R.length > 0) {
+      // Remove first element of Reached Queue, assign it to v
+      var v = R.shift();
+
+      // The neighbors of v that are not in (R ⋃ S) are pushed onto the back of R
+      var north = u.neighbors.north;
+      var east = u.neighbors.east;
+      var south = u.neighbors.south;
+      var west = u.neighbors.west;
+
+      for(neighbor in [north, east, south, west]) {
+        if(!neighbor.isEmpty()) {
+          // is neighbor not in (R ⋃ S)?
+          if(!contains(R, neighbor) && !contains(S, neighbor)) { R.push(neighbor); }
+        }
+      }
+
+      // Then v is added to S
+      S.push(v);
+    }
+
+    // Return connected component containing u
+    return S;
+  }
+
+  // Pick the first non-empty vertex, u
+  // Apply a BFS to find the component that contains u
+  // Push component, repeat and find first non-empty vertex that is not in the 
+  // existing components
   for(var i = 0; i < count; i++) {       // for each x coordinate
     for (var j = 0; j < count; j++) {    // for each y coordinate
-      var v = grid[j][i];
-      if(v.isEmpty()) { break; }
+      var u = grid[j][i];
+      if(u.isEmpty()) { break; }
 
-      // TODO: find component that v belongs to
-      // check north
-      // check east
-      // check south
-      // check west
+      components.add( findComponentContaining(u) );
     }
   }
+  console.log(components);
 
   return {
     numberComponents: numberComponents,
