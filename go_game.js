@@ -300,8 +300,20 @@ var ComponentMap = function(grid, count) {
   // 0 <= numberComponents < (count^2)/2
 
   var contains = function(S, x) {
+    if(S[0] && S[0].constructor == Array) {
+      for(var i = 0; i < S.length; i++) {
+        if(arraysEqual(S[i], x)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     return S.indexOf(x) > -1;
   }
+
+  // clever trick from http://stackoverflow.com/a/8618383/46871
+  var arraysEqual = function(a,b) { return !!a && !!b && !(a<b || b<a); }
 
   var findComponentContaining = function(u) {
     // see bfs.md for better explanation of BFS algorithm
@@ -344,7 +356,12 @@ var ComponentMap = function(grid, count) {
     for (var j = 0; j < count; j++) {    // for each y coordinate
       var u = grid[j][i];
       if(!u.isEmpty()) { 
-        components.push( findComponentContaining(u) );
+
+        var component = findComponentContaining(u);
+        // check that component is not already in components
+        if(!contains(components, component)) {
+          components.push(component);
+        }
       }
     }
   }
