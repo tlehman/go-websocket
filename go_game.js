@@ -299,7 +299,7 @@ var ComponentMap = function(grid, count) {
   var numberComponents = 0; 
   // 0 <= numberComponents < (count^2)/2
 
-  var contains(S, x) {
+  var contains = function(S, x) {
     return S.indexOf(x) > -1;
   }
 
@@ -317,9 +317,12 @@ var ComponentMap = function(grid, count) {
       var east = u.neighbors.east;
       var south = u.neighbors.south;
       var west = u.neighbors.west;
+      neighbors = [north, east, south, west];
 
-      for(neighbor in [north, east, south, west]) {
-        if(!neighbor.isEmpty()) {
+      for(var i = 0; i < neighbors.length; i++) {
+        var neighbor = neighbors[i];
+
+        if(neighbor && !neighbor.isEmpty()) {
           // is neighbor not in (R ⋃ S)?
           if(!contains(R, neighbor) && !contains(S, neighbor)) { R.push(neighbor); }
         }
@@ -340,9 +343,9 @@ var ComponentMap = function(grid, count) {
   for(var i = 0; i < count; i++) {       // for each x coordinate
     for (var j = 0; j < count; j++) {    // for each y coordinate
       var u = grid[j][i];
-      if(u.isEmpty()) { break; }
-
-      components.add( findComponentContaining(u) );
+      if(!u.isEmpty()) { 
+        components.push( findComponentContaining(u) );
+      }
     }
   }
   console.log(components);
