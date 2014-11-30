@@ -321,7 +321,7 @@ var ComponentMap = function(grid, count) {
       for(var i = 0; i < neighbors.length; i++) {
         var neighbor = neighbors[i];
 
-        if(neighbor && !neighbor.isEmpty()) {
+        if(neighbor && !neighbor.isEmpty() && neighbor.color === v.color) {
           // is neighbor not in (R ⋃ S)?
           if(!contains(R, neighbor) && !contains(S, neighbor)) { R.push(neighbor); }
         }
