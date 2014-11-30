@@ -262,6 +262,9 @@ var Vertex = function(x, y, color) {
     color: color || null,
     prettyPrint: prettyPrint,
     coords: {x: x, y: y},
+    coordsToString: function() {
+      return "(" + this.coords.x + ", " + this.coords.y + ")";
+    },
     setColor: function(color) {
       this.color = color;
       if(color == 'black') {
@@ -348,6 +351,22 @@ var ComponentMap = function(grid, count) {
     return S;
   }
 
+  var displayComponent = function(comp) {
+    var strComp = "{";
+
+    for(var i=0; i < comp.length; i++) {
+      var z = comp[i];
+
+      if(z) { 
+        strComp += z.coordsToString();
+
+        strComp += ", ";
+      }
+    }
+    strComp += "}";
+    console.log(strComp);
+  }
+
   // Pick the first non-empty vertex, u
   // Apply a BFS to find the component that contains u
   // Push component, repeat and find first non-empty vertex that is not in the 
@@ -358,6 +377,8 @@ var ComponentMap = function(grid, count) {
       if(!u.isEmpty()) { 
 
         var component = findComponentContaining(u);
+        displayComponent(component);
+
         // check that component is not already in components
         if(!contains(components, component)) {
           components.push(component);
@@ -365,7 +386,6 @@ var ComponentMap = function(grid, count) {
       }
     }
   }
-  console.log(components);
 
   return {
     numberComponents: numberComponents,
