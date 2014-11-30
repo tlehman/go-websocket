@@ -302,22 +302,6 @@ var ComponentMap = function(grid, count) {
   var numberComponents = 0; 
   // 0 <= numberComponents < (count^2)/2
 
-  var contains = function(S, x) {
-    if(S[0] && S[0].constructor == Array) {
-      for(var i = 0; i < S.length; i++) {
-        if(arraysEqual(S[i], x)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    return S.indexOf(x) > -1;
-  }
-
-  // clever trick from http://stackoverflow.com/a/8618383/46871
-  var arraysEqual = function(a,b) { return !!a && !!b && !(a<b || b<a); }
-
   var findComponentContaining = function(u) {
     // see bfs.md for better explanation of BFS algorithm
     var R = [u];  // vertices Reached
@@ -344,7 +328,7 @@ var ComponentMap = function(grid, count) {
       }
 
       // Then v is added to S
-      S.push(v);
+      if(!contains(S, v)) { S.push(v); }
     }
 
     // Return connected component containing u
@@ -399,6 +383,24 @@ var ComponentMap = function(grid, count) {
     }
   }
 }
+
+// clever trick from http://stackoverflow.com/a/8618383/46871
+function arraysEqual(a,b) { return !!a && !!b && !(a<b || b<a); }
+
+function contains(S, x) {
+  // lol js types
+  if(S[0] && S[0].constructor == Array) {
+    for(var i = 0; i < S.length; i++) {
+      if(arraysEqual(S[i], x)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  return S.indexOf(x) > -1;
+}
+
 
 function handleMouseInput(event) {
   var x = event.x || event.clientX;
