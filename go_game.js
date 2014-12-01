@@ -423,15 +423,4 @@ function create2DArray(size) {
   return board;
 }
 
-function log2DArray(ary) {
-  var strAry = "";
-  for(var i = 0; i < Board.count; i++) {
-    for(var j = 0; j < Board.count; j++) {
-      strAry += ary[i][j].prettyPrint + " ";
-    }
-    strAry += "\n";
-  }
-  console.log(strAry);
-}
-
 Board.init();
