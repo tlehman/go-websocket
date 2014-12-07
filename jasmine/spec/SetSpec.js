@@ -59,5 +59,16 @@ describe("Set", function() {
     A.remove(2);
     expect(A.equals(B)).toBe(true);
   });
+
+  it("can remove elements that are objects", function() {
+    var x = {a: 2, b: "foo"};
+    var y = {a: 3, b: "bar"};
+    var z = {a: 5, b: "baz"};
+    var A = new Set([x,y,z]);
+    var B = new Set([z,x]);
+    A.remove(y);
+
+    expect(A.equals(B)).toBe(true);
+  });
 });
 
