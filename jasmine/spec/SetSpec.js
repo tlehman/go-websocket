@@ -50,7 +50,14 @@ describe("Set", function() {
     A.add(2);
     A.add(2);
 
-    expect(A.equals(B));
+    expect(A.equals(B)).toBe(true);
+  });
+
+  it("can remove elements", function() {
+    var A = new Set([4,2]);
+    var B = new Set([4]);
+    A.remove(2);
+    expect(A.equals(B)).toBe(true);
   });
 });
 

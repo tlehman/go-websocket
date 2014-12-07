@@ -1,11 +1,36 @@
 var Set = function(elements) {
   var elements = elements || [];
 
+  var _elementIndex = function(element) {
+    if(elements.indexOf(element) != -1) { return elements.indexOf(element); }
+
+    for(var i = 0; i < elements.length; i++) {
+      if(elements[i].equals === undefined) {
+        if(elements[i] == element) {
+          return i;
+        }
+      } else {
+        if(elements[i].equals(element)) {
+          return i;
+        }
+      }
+    }
+
+    return -1;
+  }
+
   return {
     cardinality: function() { return elements.length; },
     add: function(element) {
       if(!this.member(element)) {
         elements.push(element);
+      }
+    },
+    remove: function(element) {
+      if(this.member(element)) {
+        var index = _elementIndex(element);
+
+        elements.splice(index,index);
       }
     },
     member: function(element) {
