@@ -1,5 +1,5 @@
 describe("Set", function() {
-  it("has a cardinality", function() {
+  it("has cardinality", function() {
     var A = new Set([2,3]);
     expect(A.cardinality()).toBe(2);
   });
@@ -42,6 +42,15 @@ describe("Set", function() {
 
     // transitivity of equivalence
     expect(A.equals(C)).toBe(true);
+  });
+
+  it("can add elements", function() {
+    var A = new Set();
+    var B = new Set([2]);
+    A.add(2);
+    A.add(2);
+
+    expect(A.equals(B));
   });
 });
 

@@ -3,6 +3,11 @@ var Set = function(elements) {
 
   return {
     cardinality: function() { return elements.length; },
+    add: function(element) {
+      if(!this.member(element)) {
+        elements.push(element);
+      }
+    },
     member: function(element) {
       var isMem = false;
       for(var i = 0; i < elements.length; i++) {
