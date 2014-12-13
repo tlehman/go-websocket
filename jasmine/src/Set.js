@@ -32,11 +32,14 @@ var Set = function(elements) {
 
         elements.splice(index,index);
       }
+      return this;
     },
     member: function(element) {
       var isMem = false;
       for(var i = 0; i < elements.length; i++) {
         if(elements[i] === element) {
+          isMem = true;
+        } else if(elements[i].equals && elements[i].equals(element)) {
           isMem = true;
         }
       }
@@ -63,6 +66,21 @@ var Set = function(elements) {
       });
 
       return allAareInB;
+    },
+    toString: function() {
+      str = "{";
+
+      for(var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        if(typeof(element) === "object") {
+          str += element.toString();
+        } else {
+          str += element;
+        }
+        if(i < elements.length-1) { str += ","; }
+      }
+
+      return str + "}";
     }
   }
 }

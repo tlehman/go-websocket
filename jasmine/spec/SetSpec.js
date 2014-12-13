@@ -70,5 +70,39 @@ describe("Set", function() {
 
     expect(A.equals(B)).toBe(true);
   });
+
+  it("has a toString method that returns a conventional representation of a set", function() {
+    var P = new Set([2,3,4,5]);
+    expect(P.toString()).toBe("{2,3,4,5}");
+  });
+
+  it("can handle a bunch of Pairs", function() {
+    var p1 = new Pair(2,3),
+        p2 = new Pair(9,4),
+        p3 = new Pair(5,5);
+
+    var A = new Set([p1,p2,p3]);
+    var B = new Set([p2,p1,p3]);
+
+    expect(A.equals(B)).toBe(true);
+    expect(A.toString()).toBe("{(2,3),(9,4),(5,5)}");
+  });                               
+
+  it("can add and remove pairs", function() {
+    var p1 = new Pair(2,3),
+        p2 = new Pair(9,4),
+        p3 = new Pair(9,4);
+
+    var A = new Set([p1,p2]);
+    var B = new Set([p1]);
+
+    console.log(A.toString());
+
+    A.remove(p3);
+
+    console.log(A.remove(p3).toString());
+
+    expect(A.equals(B)).toBe(true);
+  });
 });
 

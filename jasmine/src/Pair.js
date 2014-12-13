@@ -9,7 +9,8 @@ var Pair = function(left,right) {
       if(other.left === undefined && other.right === undefined) { return false; }
 
       return (this.left() === other.left()) && (this.right() === other.right());
-    }
+    },
+    toString: function() { return "(" + this.left() + "," + this.right() + ")" }
   }
-};
-f
+}
+
