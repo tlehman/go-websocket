@@ -16,9 +16,11 @@ in.
 
 TODO:
 
- - [ ] Implement Pair, Set, Graph
+ - [x] Implement Pair, Set, Graph
  - [x] hook up graph North,South,East,West edges on Board.putPiece
- - [ ] implement Breadth-First Search to identify connected components
+ - [ ] Switch the order of the board coordinates so x is first, y is second
+ - [ ] use new Pair, Set and Graph types
+ - [ ] implement BFS to find connected components
  - [ ] define libertiesCount() function to count the liberties of a component
  - [ ] add scoring rules to program
  - [ ] save state in localStorage
