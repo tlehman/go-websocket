@@ -63,7 +63,7 @@ var Board = {
     // for each piece in grid
     for (var idx = 0; idx < this.count; idx++) {
       for (var idy = 0; idy < this.count; idy++) {
-        if(grid[idy][idx].color != null) {
+        if(grid[idx][idy].color != null) {
           var nx = idx*this.spacing + this.offset;
           var ny = idy*this.spacing + this.offset;
 
@@ -71,7 +71,7 @@ var Board = {
           ctx.moveTo(nx+this.pieceRadius,ny);
           ctx.arc(nx,ny,this.pieceRadius,0,2*Math.PI,false);
 
-          ctx.fillStyle = grid[idy][idx].color;
+          ctx.fillStyle = grid[idx][idy].color;
 
           ctx.fill();
           ctx.lineWidth = 3;
@@ -197,9 +197,9 @@ var Board = {
     var grid = this.grid;
 
     // check if piece is already there
-    if(grid[idy][idx].color !== null) { return; }
+    if(grid[idx][idy].color !== null) { return; }
 
-    var v = grid[idy][idx];
+    var v = grid[idx][idy];
     v.setColor(color);
 
     // hook up to neighbors
@@ -227,7 +227,7 @@ var Board = {
 
   destroyVertexAtIndex: function(idx,idy) {
     var grid = this.grid;
-    var vertex = grid[idy][idx];
+    var vertex = grid[idx][idy];
 
     // check that piece is actually there
     if(vertex.color === null ) { return; }
