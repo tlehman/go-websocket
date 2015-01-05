@@ -96,12 +96,7 @@ describe("Set", function() {
     var A = new Set([p1,p2]);
     var B = new Set([p1]);
 
-    console.log(A.toString());
-
     A.remove(p3);
-
-    console.log(A.remove(p3).toString());
-
     expect(A.equals(B)).toBe(true);
   });
 });

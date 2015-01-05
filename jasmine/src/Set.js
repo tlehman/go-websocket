@@ -52,6 +52,7 @@ var Set = function(elements) {
       for(var i = 0; i < elements.length; i++) {
         fn(elements[i]);
       }
+      return this;
     },
     /* if all elements of A are in B, then A is a subset of B */
     subset: function(other) {

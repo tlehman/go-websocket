@@ -16,6 +16,7 @@ in.
 
 TODO:
 
+ - [ ] Implement Pair, Set, Graph
  - [x] hook up graph North,South,East,West edges on Board.putPiece
  - [ ] implement Breadth-First Search to identify connected components
  - [ ] define libertiesCount() function to count the liberties of a component
