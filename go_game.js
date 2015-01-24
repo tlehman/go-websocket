@@ -252,20 +252,6 @@ var Board = {
 // clever trick from http://stackoverflow.com/a/8618383/46871
 function arraysEqual(a,b) { return !!a && !!b && !(a<b || b<a); }
 
-function contains(S, x) {
-    // lol js types
-    if(S[0] && S[0].constructor == Array) {
-        for(var i = 0; i < S.length; i++) {
-            if(arraysEqual(S[i], x)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    return S.indexOf(x) > -1;
-}
-
 
 function handleMouseInput(event) {
     var x = event.x || event.clientX;

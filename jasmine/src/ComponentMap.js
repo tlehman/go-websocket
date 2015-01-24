@@ -13,12 +13,12 @@ var ComponentMap = function(grid, count) {
 
     var findComponentContaining = function(u) {
         // see bfs.md for better explanation of BFS algorithm
-        var R = [u];    // vertices Reached
-        var S = [];     // vertices Searched
+        var R = new Queue([u]);    // vertices Reached
+        var S = new Set([]);       // vertices Searched
 
-        while(R.length > 0) {
+        while(!R.empty()) {
             // Remove first element of Reached Queue, assign it to v
-            var v = R.shift();
+            var v = R.dequeue();
 
             // The neighbors of v that are not in (R ⋃ S) are pushed onto the back of R
             var north = u.neighbors.north;
@@ -32,32 +32,17 @@ var ComponentMap = function(grid, count) {
 
                 if(neighbor && !neighbor.isEmpty() && neighbor.color === v.color) {
                     // is neighbor not in (R ⋃ S)?
-                    if(!contains(R, neighbor) && !contains(S, neighbor)) { R.push(neighbor); }
+                    // !(A || B) = !A && !B
+                    if(!contains(R, neighbor) && !S.member(neighbor)) { R.enqueue(neighbor); }
                 }
             }
 
             // Then v is added to S
-            if(!contains(S, v)) { S.push(v); }
+            if(!S.member(v)) { S.add(v); }
         }
 
         // Return connected component containing u
         return S;
-    }
-
-    var displayComponent = function(comp) {
-        var strComp = "{";
-
-        for(var i=0; i < comp.length; i++) {
-            var z = comp[i];
-
-            if(z) {
-                strComp += z.coordsToString();
-
-                strComp += ", ";
-            }
-        }
-        strComp += "}";
-        console.log(strComp);
     }
 
     // Pick the first non-empty vertex, u
@@ -70,7 +55,7 @@ var ComponentMap = function(grid, count) {
             if(!u.isEmpty()) {
 
                 var component = findComponentContaining(u);
-                displayComponent(component);
+                console.log(component.toString());
 
                 // check that component is not already in components
                 if(!contains(components, component)) {

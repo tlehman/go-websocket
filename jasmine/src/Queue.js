@@ -10,6 +10,22 @@ var Queue = function() {
         empty: function() {
             return _elements.length == 0;
         },
+        contains: function(elem) {
+            var current;
+            for(var i = 0; i < _elements.length; i++) {
+                current = _elements[i];
+                if(typeof(current) === "object" && current.equals !== undefined) {
+                    if(current.equals(elem)) {
+                        return true;
+                    }
+                } else {
+                    if(current == elem) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
         toString: function() {
             var str = "[";
             var elem;

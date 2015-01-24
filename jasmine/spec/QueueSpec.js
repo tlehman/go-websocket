@@ -6,6 +6,19 @@ describe("Queue", function() {
         expect(q.empty()).toBe(false);
     });
 
+    it("has a contains method", function() {
+        var q = new Queue();
+        var p = new Pair(2,5);
+        var pp = new Pair(2,5);
+
+        q.enqueue(1);
+        q.enqueue(p);
+
+        expect(q.contains(0)).toBe(false);
+        expect(q.contains(pp)).toBe(true);
+    });
+
+
     it("has a toString method", function() {
         var p = new Queue();
         var q = new Queue();
