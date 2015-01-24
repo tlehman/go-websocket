@@ -1,13 +1,13 @@
 /* a ComponentMap object maps components to vertices that are all in that component
      it is used to:
-            0. find connected components in grid
-            1. count the number of components
-            2. iterate over each component, finding all the empty spots on the edges
-            3. probably something I didn't intend
+          0. find connected components in grid
+          1. count the number of components
+          2. iterate over each component, finding all the empty spots on the edges
+          3. probably something I didn't intend
 */
 var ComponentMap = function(grid, count) {
     // initialize an array of size numberComponents and populate with empty arrays
-    var components = [];
+    var components = new Set([]);
     var numberComponents = 0;
     // 0 <= numberComponents < (count^2)/2
 
@@ -33,12 +33,12 @@ var ComponentMap = function(grid, count) {
                 if(neighbor && !neighbor.isEmpty() && neighbor.color === v.color) {
                     // is neighbor not in (R ⋃ S)?
                     // !(A || B) = !A && !B
-                    if(!contains(R, neighbor) && !S.member(neighbor)) { R.enqueue(neighbor); }
+                    if(!R.contains(neighbor) && !S.member(neighbor)) { R.enqueue(neighbor); }
                 }
             }
 
             // Then v is added to S
-            if(!S.member(v)) { S.add(v); }
+            S.add(v);
         }
 
         // Return connected component containing u
@@ -57,10 +57,7 @@ var ComponentMap = function(grid, count) {
                 var component = findComponentContaining(u);
                 console.log(component.toString());
 
-                // check that component is not already in components
-                if(!contains(components, component)) {
-                    components.push(component);
-                }
+                components.add(component);
             }
         }
     }

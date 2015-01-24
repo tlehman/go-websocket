@@ -18,6 +18,14 @@ describe("Queue", function() {
         expect(q.contains(pp)).toBe(true);
     });
 
+    it("has an empty method", function() {
+        var q = new Queue();
+
+        q.enqueue(1);
+        q.dequeue();
+
+        expect(q.empty()).toBe(true);
+    });
 
     it("has a toString method", function() {
         var p = new Queue();

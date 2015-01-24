@@ -10,6 +10,11 @@ describe("Set", function() {
         expect(A.member('not to be')).toBe(false);
     });
 
+    it("has an empty method", function() {
+        var S = new Set([]);
+        expect(S.empty()).toBe(true);
+    });
+
     it("has a subset method that behaves well", function() {
         var O = new Set;
         var A = new Set([1,2]);

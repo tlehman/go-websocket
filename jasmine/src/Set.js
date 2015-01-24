@@ -54,6 +54,9 @@ var Set = function(elements) {
             }
             return this;
         },
+        empty: function() {
+            return this.cardinality() == 0;
+        },
         /* if all elements of A are in B, then A is a subset of B */
         subset: function(other) {
             var A = this;
