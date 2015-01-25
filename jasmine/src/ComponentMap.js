@@ -8,7 +8,6 @@
 var ComponentMap = function(graph, count) {
     // initialize an array of size numberComponents and populate with empty arrays
     var components = new Set([]);
-    var numberComponents = 0;
     // 0 <= numberComponents < (count^2)/2
 
     var findComponentContaining = function(u) {
@@ -20,11 +19,9 @@ var ComponentMap = function(graph, count) {
         while(!R.empty()) {
             // Remove first element of Reached Queue, assign it to v
             v = R.dequeue();
-            //if(v === undefined) { break };
 
             // Find all vertices adjacent to u
             neighbors = graph.neighborsOf(u);
-            console.log(neighbors.toString());
 
             neighbors.each(function(neighbor) {
 
@@ -55,7 +52,7 @@ var ComponentMap = function(graph, count) {
     });
 
     return {
-        numberComponents: numberComponents,
+        numberComponents: components.cardinality(),
         eachComponent: function() {
             var i = 0;
             return function() {
