@@ -1,11 +1,11 @@
-var Queue = function() {
-    var _elements = [];
+var Queue = function(elements) {
+    var _elements = elements || [];
     return {
         enqueue: function(elem) {
             _elements.push(elem);
         },
         dequeue: function(elem) {
-            _elements.shift();
+            return _elements.shift();
         },
         empty: function() {
             return _elements.length == 0;

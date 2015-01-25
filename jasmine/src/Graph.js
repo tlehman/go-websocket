@@ -27,8 +27,11 @@ var Graph = function(edges) {
             _edges.each(function(edge) {
                 if(edge.member(v)) {
                     edge.each(function(vertex) {
-                        if((vertex !== v) || (vertex.equals && vertex.equals(v))) {
-                            neighbors.add(vertex);
+
+                        if(vertex.equals) {
+                            if(!vertex.equals(v)) { neighbors.add(vertex); }
+                        } else {
+                            if(vertex !== v) { neighbors.add(vertex); }
                         }
                     });
                 }

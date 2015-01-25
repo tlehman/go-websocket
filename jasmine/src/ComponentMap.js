@@ -9,31 +9,32 @@ var ComponentMap = function(graph, count) {
     // initialize an array of size numberComponents and populate with empty arrays
     var components = new Set([]);
     var numberComponents = 0;
-    var seeds = new Set([]); // seeds are used for searching components
     // 0 <= numberComponents < (count^2)/2
 
     var findComponentContaining = function(u) {
         // see bfs.md for better explanation of BFS algorithm
         var R = new Queue([u]);    // vertices Reached
         var S = new Set([]);       // vertices Searched
+        var v;
 
         while(!R.empty()) {
             // Remove first element of Reached Queue, assign it to v
-            var v = R.dequeue();
+            v = R.dequeue();
+            //if(v === undefined) { break };
 
             // Find all vertices adjacent to u
+            neighbors = graph.neighborsOf(u);
+            console.log(neighbors.toString());
 
-            neighbors = [north, east, south, west];
+            neighbors.each(function(neighbor) {
 
-            for(var i = 0; i < neighbors.length; i++) {
-                var neighbor = neighbors[i];
-
-                if(neighbor && !neighbor.isEmpty() && neighbor.color === v.color) {
-                    // is neighbor not in (R ⋃ S)?
-                    // !(A || B) = !A && !B
-                    if(!R.contains(neighbor) && !S.member(neighbor)) { R.enqueue(neighbor); }
+                // color checks have already been madek
+                // is neighbor not in (R ⋃ S)?
+                // !(A || B) = !A && !B
+                if(!R.contains(neighbor) && !S.member(neighbor)) {
+                    R.enqueue(neighbor);
                 }
-            }
+            });
 
             // Then v is added to S
             S.add(v);
@@ -48,14 +49,9 @@ var ComponentMap = function(graph, count) {
     // Push component, repeat and find first non-empty vertex that is not in the
     // existing components
     graph.vertices.each(function(u) {
-        var component;
-        if(!seeds.member(u)) {
-            component = findComponentContaining(u);
-            seeds.add(u);
-            console.log(component.toString());
-            components.add(component);
-        }
-
+        var component = findComponentContaining(u);
+        console.log(component.toString());
+        components.add(component);
     });
 
     return {
