@@ -20,6 +20,8 @@ TODO:
  - [x] hook up graph North,South,East,West edges on Board.putPiece
  - [x] Switch the order of the board coordinates so x is first, y is second
  - [x] Add Queue#contains
+ - [ ] Vertex holds a Pair of coordinates
+ - [ ] Adding makes an edge from the pairs of the adjacent vertices
  - [ ] use new Pair, Set and Graph types
  - [ ] implement BFS to find connected components
  - [ ] define libertiesCount() function to count the liberties of a component

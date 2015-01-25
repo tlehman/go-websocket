@@ -6,11 +6,12 @@
 
 var Board = {
     numVertices: 0,
-    count: 9,       /* 9x9 board */
-    width: 400,     /* 500px square image */
-    offset: 20,     /* 20px padding on upper left */
+    count: 9,               /* 9x9 board */
+    width: 400,             /* 500px square image */
+    offset: 20,             /* 20px padding on upper left */
     pieceRadius: 15,
     currentColor: 'black',
+    graph: new Graph(),     /* graph represents adjacent isochromatic pieces */
 
     canvas: document.getElementById('canvas'),
 
@@ -21,6 +22,7 @@ var Board = {
 
         this.spacing = this.width / this.count;
         this.grid = create2DArray(this.count);
+        this.graph = new Graph();
 
         this.drawLines();
     },
@@ -131,7 +133,6 @@ var Board = {
         this.clear();
         this.drawLines();
         this.drawPieces();
-        //this.drawEdges();
         this.updateScores();
     },
 
@@ -147,53 +148,8 @@ var Board = {
         return "{" + point.x + "," + point.y + "},";
     },
 
-    drawEdges: function() {
-        var count = this.count;
-        var grid = this.grid;
-        var formatPoint = this.formatPoint;
-
-        for(var i = 0; i < count; i++) {
-            for (var j = 0; j < count; j++) {
-                var currentPiece = grid[j][i];
-                var currentVertexStr = formatPoint(currentPiece.coords);
-                var neighbors = currentPiece.neighbors;
-                var color = currentPiece.color;
-
-                if(neighbors.north && color === neighbors.north.color) {
-                    console.log(currentVertexStr + " -> " + formatPoint(neighbors.north.coords));
-                    this.drawArrow(currentPiece.coords, neighbors.north.coords);
-                }
-                if(neighbors.east && color === neighbors.east.color) {
-                    console.log(currentVertexStr + " -> " + formatPoint(neighbors.east.coords));
-                    this.drawArrow(currentPiece.coords, neighbors.east.coords);
-                }
-                if(neighbors.south && color === neighbors.south.color) {
-                    console.log(currentVertexStr + " -> " + formatPoint(neighbors.south.coords));
-                    this.drawArrow(currentPiece.coords, neighbors.south.coords);
-                }
-                if(neighbors.west && color === neighbors.west.color) {
-                    console.log(currentVertexStr + " -> " + formatPoint(neighbors.west.coords));
-                    this.drawArrow(currentPiece.coords, neighbors.west.coords);
-                }
-            }
-        }
-    },
-
-    // assumes from and to are {x:,y} pairs
-    drawArrow: function(from, to) {
-        var canvas = this.canvas;
-        var ctx = canvas.getContext('2d');
-
-        ctx.beginPath();
-        ctx.moveTo(from.x, from.y);
-        ctx.lineTo(to.x, to.y);
-
-        ctx.strokeStyle = '#FF0000';
-        ctx.lineWidth = 6;
-        ctx.stroke();
-    },
-
     setVertexAtIndex: function(idx,idy,color) {
+        var c = this.count;
         var grid = this.grid;
 
         // check if piece is already there
@@ -202,14 +158,23 @@ var Board = {
         var v = grid[idx][idy];
         v.setColor(color);
 
-        // hook up to neighbors
-        v.neighbors.north = (v.coords.y <= 0) ?                         null : grid[v.coords.y - 1][v.coords.x];
-        v.neighbors.east    = (v.coords.x >= Board.count-1) ? null : grid[v.coords.y][v.coords.x + 1];
-        v.neighbors.south = (v.coords.y >= Board.count-1) ? null : grid[v.coords.y + 1][v.coords.x];
-        v.neighbors.west    = (v.coords.x <= 0) ?                         null : grid[v.coords.y][v.coords.x - 1];
-
         // keep track of number of vertices
         this.numVertices += 1;
+
+        var north = (idy-1 > 0) ? null : grid[idx][idy-1];
+        var east  = (idx+1 < c) ? null : grid[idx+1][idy];
+        var south = (idy+1 < c) ? null : grid[idx][idy+1];
+        var west  = (idy-1 > 0) ? null : grid[idx-1][idy];
+
+        if(north && north.color == v.color) {
+        }
+        if(east && east.color == v.color) {
+        }
+        if(south && south.color == v.color) {
+        }
+        if(west && west.color == v.color) {
+        }
+
 
         // hook neighbors back up to v
         var n = v.neighbors.north;
@@ -222,6 +187,7 @@ var Board = {
         if(e !== null) e.neighbors.west = v;
         if(w !== null) w.neighbors.east = v;
 
+        
         this.toggleCurrentColor();
     },
 

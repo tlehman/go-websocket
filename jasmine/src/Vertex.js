@@ -7,12 +7,9 @@ var Vertex = function(x, y, color) {
     }
 
     return {
+        pair: new Pair(x,y),
         color: color || null,
         prettyPrint: prettyPrint,
-        coords: {x: x, y: y},
-        coordsToString: function() {
-            return "(" + this.coords.x + ", " + this.coords.y + ")";
-        },
         setColor: function(color) {
             this.color = color;
             if(color == 'black') {
