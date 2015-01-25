@@ -14,6 +14,13 @@ var Graph = function(edges) {
 
     return {
         vertices: _vertices,
-        edges: _edges
+        edges: _edges,
+        toString: function() {
+            var edgeListStr = "";
+            _edges.each(function(e) {
+                edgeListStr += e.toString();
+            });
+            return _edges.toString().replace(/\(/g,"{").replace(/\)/g,"}");
+        }
     };
 }
