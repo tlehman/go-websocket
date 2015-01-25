@@ -21,6 +21,21 @@ var Graph = function(edges) {
                 _vertices.add(v);
             });
         },
+        neighborsOf: function(v) {
+            var neighbors = new Set([]);
+            // union all of the edges containing v, subtract {v}
+            _edges.each(function(edge) {
+                if(edge.member(v)) {
+                    edge.each(function(vertex) {
+                        if((vertex !== v) || (vertex.equals && vertex.equals(v))) {
+                            neighbors.add(vertex);
+                        }
+                    });
+                }
+            });
+            neighbors.remove(v);
+            return neighbors;
+        },
         toString: function() {
             var edgeListStr = "";
             _edges.each(function(e) {
@@ -30,3 +45,4 @@ var Graph = function(edges) {
         }
     };
 }
+
