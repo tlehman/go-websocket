@@ -49,6 +49,17 @@ describe("Set", function() {
         expect(A.equals(C)).toBe(true);
     });
 
+    it("can compare sets of sets of pairs", function() {
+        var p = new Pair(1,2),  s = new Pair(1,2),
+            q = new Pair(2,3),  t = new Pair(2,3),
+            r = new Pair(2,2),  u = new Pair(2,2);
+        
+        var A = new Set([ new Set([p,q]), new Set([r]) ]),
+            B = new Set([ new Set([u]), new Set([s,t]) ]);
+
+        expect(A.equals(B)).toBe(true);
+    });
+
     it("can add elements", function() {
         var A = new Set();
         var B = new Set([2]);

@@ -38,6 +38,7 @@ var ComponentMap = function(graph, count) {
         }
 
         // Return connected component containing u
+        console.log(S.toString());
         return S;
     }
 
@@ -56,7 +57,7 @@ var ComponentMap = function(graph, count) {
         eachComponent: function() {
             var i = 0;
             return function() {
-                if(i >= numberComponents) { return null; }
+                if(i >= components.cardinality()) { return null; }
 
                 return components[i++];
             }
