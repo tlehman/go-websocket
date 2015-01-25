@@ -6,8 +6,8 @@
 
 var Board = {
     numVertices: 0,
-    count: 13,        /* 13x13 board */
-    width: 600,     /* 500px square image */
+    count: 9,       /* 9x9 board */
+    width: 400,     /* 500px square image */
     offset: 20,     /* 20px padding on upper left */
     pieceRadius: 15,
     currentColor: 'black',
