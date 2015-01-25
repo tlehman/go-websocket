@@ -152,42 +152,34 @@ var Board = {
         var c = this.count;
         var grid = this.grid;
 
-        // check if piece is already there
-        if(grid[idx][idy].color !== null) { return; }
-
         var v = grid[idx][idy];
+        // check if piece is already there
+        if(v.color !== null) { return; }
         v.setColor(color);
 
         // keep track of number of vertices
         this.numVertices += 1;
 
-        var north = (idy-1 > 0) ? null : grid[idx][idy-1];
-        var east  = (idx+1 < c) ? null : grid[idx+1][idy];
-        var south = (idy+1 < c) ? null : grid[idx][idy+1];
-        var west  = (idy-1 > 0) ? null : grid[idx-1][idy];
+        var north = (idy-1 >= 0) ? grid[idx][idy-1] : null;
+        var east  = (idx+1 < c) ? grid[idx+1][idy] : null;
+        var south = (idy+1 < c) ? grid[idx][idy+1] : null;
+        var west  = (idx-1 >= 0) ? grid[idx-1][idy] : null;
 
         if(north && north.color == v.color) {
+            this.graph.edges.add(new Pair(v.pair, north.pair));
         }
         if(east && east.color == v.color) {
+            this.graph.edges.add(new Pair(v.pair, east.pair));
         }
         if(south && south.color == v.color) {
+            this.graph.edges.add(new Pair(v.pair, south.pair));
         }
         if(west && west.color == v.color) {
+            this.graph.edges.add(new Pair(v.pair, west.pair));
         }
 
+        console.log(this.graph.edges.toString());
 
-        // hook neighbors back up to v
-        var n = v.neighbors.north;
-        var s = v.neighbors.south;
-        var e = v.neighbors.east;
-        var w = v.neighbors.west;
-
-        if(n !== null) n.neighbors.south = v;
-        if(s !== null) s.neighbors.north = v;
-        if(e !== null) e.neighbors.west = v;
-        if(w !== null) w.neighbors.east = v;
-
-        
         this.toggleCurrentColor();
     },
 
@@ -215,10 +207,6 @@ var Board = {
     }
 }
 
-// clever trick from http://stackoverflow.com/a/8618383/46871
-function arraysEqual(a,b) { return !!a && !!b && !(a<b || b<a); }
-
-
 function handleMouseInput(event) {
     var x = event.x || event.clientX;
     var y = event.y || event.clientY;
@@ -233,7 +221,7 @@ function create2DArray(size) {
     for(var i = 0; i < size; i++) {
         board[i] = new Array(size);
         for(var j = 0; j < size; j++) {
-            board[i][j] = new Vertex(j,i,null);
+            board[i][j] = new Vertex(i,j,null);
         }
     }
 
