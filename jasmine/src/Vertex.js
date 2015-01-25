@@ -21,12 +21,6 @@ var Vertex = function(x, y, color) {
         isEmpty: function() {
             return this.color === null;
         },
-        neighbors: {        // null for now, these get updated in Board.putPiece
-            north: null,
-            east:    null,
-            south: null,
-            west:    null
-        },
         destroy: function() {
             this.color = null;
             this.prettyPrint = '.';

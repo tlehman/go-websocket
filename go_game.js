@@ -102,7 +102,7 @@ var Board = {
     },
 
     putPiece: function(x,y) {
-        var grid = this.grid;
+        var graph = this.graph;
         var count = this.count;
 
         var idx = this.pointToIndex(x);
@@ -114,7 +114,7 @@ var Board = {
         this.setVertexAtIndex(idx,idy,this.currentColor);
 
         // find connected components
-        var connComp = new ComponentMap(grid, count);
+        var connComp = new ComponentMap(graph, count);
 
         // iterate over components, destroying those with no liberties
         var compIter = connComp.eachComponent();
@@ -153,6 +153,7 @@ var Board = {
         var grid = this.grid;
 
         var v = grid[idx][idy];
+
         // check if piece is already there
         if(v.color !== null) { return; }
         v.setColor(color);
@@ -166,19 +167,17 @@ var Board = {
         var west  = (idx-1 >= 0) ? grid[idx-1][idy] : null;
 
         if(north && north.color == v.color) {
-            this.graph.edges.add(new Pair(v.pair, north.pair));
+            this.graph.addEdge(new Set([v.pair, north.pair]));
         }
         if(east && east.color == v.color) {
-            this.graph.edges.add(new Pair(v.pair, east.pair));
+            this.graph.addEdge(new Set([v.pair, east.pair]));
         }
         if(south && south.color == v.color) {
-            this.graph.edges.add(new Pair(v.pair, south.pair));
+            this.graph.addEdge(new Set([v.pair, south.pair]));
         }
         if(west && west.color == v.color) {
-            this.graph.edges.add(new Pair(v.pair, west.pair));
+            this.graph.addEdge(new Set([v.pair, west.pair]));
         }
-
-        console.log(this.graph.edges.toString());
 
         this.toggleCurrentColor();
     },
@@ -190,19 +189,6 @@ var Board = {
         // check that piece is actually there
         if(vertex.color === null ) { return; }
 
-        // delete links to this vertex
-        if(vertex.neighbors.north) {
-            vertex.neighbors.north.south = null;
-        }
-        if(vertex.neighbors.south) {
-            vertex.neighbors.south.north = null;
-        }
-        if(vertex.neighbors.east) {
-            vertex.neighbors.east.west = null;
-        }
-        if(vertex.neighbors.west) {
-            vertex.neighbors.west.east = null;
-        }
         vertex.destroy();
     }
 }

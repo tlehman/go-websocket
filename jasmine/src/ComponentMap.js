@@ -5,10 +5,11 @@
           2. iterate over each component, finding all the empty spots on the edges
           3. probably something I didn't intend
 */
-var ComponentMap = function(grid, count) {
+var ComponentMap = function(graph, count) {
     // initialize an array of size numberComponents and populate with empty arrays
     var components = new Set([]);
     var numberComponents = 0;
+    var seeds = new Set([]); // seeds are used for searching components
     // 0 <= numberComponents < (count^2)/2
 
     var findComponentContaining = function(u) {
@@ -20,11 +21,8 @@ var ComponentMap = function(grid, count) {
             // Remove first element of Reached Queue, assign it to v
             var v = R.dequeue();
 
-            // The neighbors of v that are not in (R ⋃ S) are pushed onto the back of R
-            var north = u.neighbors.north;
-            var east = u.neighbors.east;
-            var south = u.neighbors.south;
-            var west = u.neighbors.west;
+            // Find all vertices adjacent to u
+
             neighbors = [north, east, south, west];
 
             for(var i = 0; i < neighbors.length; i++) {
@@ -49,18 +47,16 @@ var ComponentMap = function(grid, count) {
     // Apply a BFS to find the component that contains u
     // Push component, repeat and find first non-empty vertex that is not in the
     // existing components
-    for(var i = 0; i < count; i++) {             // for each x coordinate
-        for (var j = 0; j < count; j++) {        // for each y coordinate
-            var u = grid[j][i];
-            if(!u.isEmpty()) {
-
-                var component = findComponentContaining(u);
-                console.log(component.toString());
-
-                components.add(component);
-            }
+    graph.vertices.each(function(u) {
+        var component;
+        if(!seeds.member(u)) {
+            component = findComponentContaining(u);
+            seeds.add(u);
+            console.log(component.toString());
+            components.add(component);
         }
-    }
+
+    });
 
     return {
         numberComponents: numberComponents,

@@ -20,15 +20,16 @@ TODO:
  - [x] hook up graph North,South,East,West edges on Board.putPiece
  - [x] Switch the order of the board coordinates so x is first, y is second
  - [x] Add Queue#contains
- - [ ] Vertex holds a Pair of coordinates
- - [ ] Adding makes an edge from the pairs of the adjacent vertices
- - [ ] use new Pair, Set and Graph types
- - [ ] implement BFS to find connected components
- - [ ] define libertiesCount() function to count the liberties of a component
- - [ ] add scoring rules to program
- - [ ] save state in localStorage
- - [ ] add clear board button
- - [ ] hook up a WebSocket (before this, learn how to WebSocket)
+ - [x] Vertex holds a Pair of coordinates
+ - [x] Adding makes an edge from the pairs of the adjacent vertices
+ - [x] Use new Pair, Set and Graph types
+ - [ ] Find neighborhood of vertex
+ - [ ] Implement BFS to find connected components
+ - [ ] Define libertiesCount() function to count the liberties of a component
+ - [ ] Add scoring rules to program
+ - [ ] Save state in localStorage
+ - [ ] Add clear board button
+ - [ ] Hook up a WebSocket (before this, learn how to WebSocket)
 
 # Data Structures
 

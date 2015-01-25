@@ -15,6 +15,12 @@ var Graph = function(edges) {
     return {
         vertices: _vertices,
         edges: _edges,
+        addEdge: function(edge) {
+            _edges.add(edge);
+            edge.each(function(v) {
+                _vertices.add(v);
+            });
+        },
         toString: function() {
             var edgeListStr = "";
             _edges.each(function(e) {
