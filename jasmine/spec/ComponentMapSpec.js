@@ -15,8 +15,7 @@ describe("ComponentMap", function() {
 
     it("counts the number of connected components in a graph", function() {
         var connComp = new ComponentMap(graph, 9);
-        // TODO: dont commit with this
-        expect(connComp.numberComponents).toEqual(6);
+        expect(connComp.numberComponents).toEqual(2);
     });
 });
 

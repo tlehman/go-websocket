@@ -22,6 +22,7 @@ var ComponentMap = function(graph, count) {
 
             // Find all vertices adjacent to u
             neighbors = graph.neighborsOf(u);
+            console.log("neighbors of " + u.toString() + " : " + neighbors.toString());
 
             neighbors.each(function(neighbor) {
 
@@ -38,7 +39,6 @@ var ComponentMap = function(graph, count) {
         }
 
         // Return connected component containing u
-        console.log(S.toString());
         return S;
     }
 
