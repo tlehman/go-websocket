@@ -101,6 +101,9 @@ var Board = {
         return Math.round((p-this.offset)/this.spacing);
     },
 
+    destroyPiecesInComponent: function(comp) {
+    },
+
     putPiece: function(x,y) {
         var graph = this.graph;
         var count = this.count;
@@ -119,6 +122,8 @@ var Board = {
         // clear debug output
         console.clear();
 
+        var destroyPiecesInComponent = this.destroyPiecesInComponent;
+
         // iterate over components, destroying those with no liberties
         var compIter = connComp.eachComponent(function(comp) {
             // debug output
@@ -129,7 +134,7 @@ var Board = {
 
             // destroy components with liberties = 0
             if(numLibs === 0) {
-                //this.destroyPiecesInComponent(comp);
+                destroyPiecesInComponent(comp);
             }
 
         });
@@ -139,9 +144,6 @@ var Board = {
         this.drawLines();
         this.drawPieces();
         this.updateScores();
-    },
-
-    destroyPiecesInComponent: function() {
     },
 
     updateScores: function() {
