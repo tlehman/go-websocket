@@ -10,9 +10,9 @@ var ComponentMap = function(graph) {
     var components = new Set([]);
     // 0 <= numberComponents < (count^2)/2
 
-    console.clear();
-    console.log("| v | R | S |");
-    console.log("|---|---|---|");
+    //console.clear();
+    //console.log("| v | R | S |");
+    //console.log("|---|---|---|");
     var findComponentContaining = function(u) {
         // see bfs.md for better explanation of BFS algorithm
         var R = new Queue([u]);    // vertices Reached
@@ -20,7 +20,7 @@ var ComponentMap = function(graph) {
         var v;
 
 
-        console.log("| "+u.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
+        //console.log("| "+u.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
 
         while(!R.empty()) {
             // Remove first element of Reached Queue, assign it to v
@@ -43,7 +43,7 @@ var ComponentMap = function(graph) {
             S.add(v);
             
             // debug output
-            console.log("| "+v.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
+            //console.log("| "+v.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
         }
 
         // Return connected component containing u
