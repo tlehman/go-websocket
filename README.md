@@ -25,7 +25,7 @@ TODO:
  - [x] Use new Pair, Set and Graph types
  - [ ] Add Set#remove
  - [ ] Find neighborhood of vertex
- - [ ] Implement BFS to find connected components
+ - [x] Implement BFS to find connected components
  - [ ] Define libertiesCount() function to count the liberties of a component
  - [ ] Add scoring rules to program
  - [ ] Save state in localStorage
