@@ -5,24 +5,29 @@
           2. iterate over each component, finding all the empty spots on the edges
           3. probably something I didn't intend
 */
-var ComponentMap = function(graph, count) {
+var ComponentMap = function(graph) {
     // initialize an array of size numberComponents and populate with empty arrays
     var components = new Set([]);
     // 0 <= numberComponents < (count^2)/2
 
+    console.clear();
+    console.log("| v | R | S |");
+    console.log("|---|---|---|");
     var findComponentContaining = function(u) {
         // see bfs.md for better explanation of BFS algorithm
         var R = new Queue([u]);    // vertices Reached
         var S = new Set([]);       // vertices Searched
         var v;
 
+
+        console.log("| "+u.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
+
         while(!R.empty()) {
             // Remove first element of Reached Queue, assign it to v
             v = R.dequeue();
 
-            // Find all vertices adjacent to u
-            neighbors = graph.neighborsOf(u);
-            console.log("neighbors of " + u.toString() + " : " + neighbors.toString());
+            // Find all vertices adjacent to v
+            neighbors = graph.neighborsOf(v);
 
             neighbors.each(function(neighbor) {
 
@@ -36,6 +41,9 @@ var ComponentMap = function(graph, count) {
 
             // Then v is added to S
             S.add(v);
+            
+            // debug output
+            console.log("| "+v.toString()+" | "+ R.toString()+" | "+S.toString()+" |");
         }
 
         // Return connected component containing u
@@ -48,7 +56,6 @@ var ComponentMap = function(graph, count) {
     // existing components
     graph.vertices.each(function(u) {
         var component = findComponentContaining(u);
-        console.log(component.toString());
         components.add(component);
     });
 

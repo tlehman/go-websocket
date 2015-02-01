@@ -109,12 +109,12 @@ var Board = {
         var idy = this.pointToIndex(y);
 
         // check if (idx,idy) in range
-        if(idx >= this.count || idy >= this.count) { return; }
+        if(idx >= count || idy >= count) { return; }
 
         this.setVertexAtIndex(idx,idy,this.currentColor);
 
         // find connected components
-        var connComp = new ComponentMap(graph, count);
+        var connComp = new ComponentMap(graph);
 
         // iterate over components, destroying those with no liberties
         var compIter = connComp.eachComponent();
