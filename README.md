@@ -23,8 +23,8 @@ TODO:
  - [x] Vertex holds a Pair of coordinates
  - [x] Adding makes an edge from the pairs of the adjacent vertices
  - [x] Use new Pair, Set and Graph types
- - [ ] Add Set#remove
- - [ ] Find neighborhood of vertex
+ - [x] Add Set#remove
+ - [x] Find neighborhood of vertex
  - [x] Implement BFS to find connected components
  - [ ] Define libertiesCount() function to count the liberties of a component
  - [ ] Add scoring rules to program
