@@ -49,21 +49,4 @@ components, then expose an iterator that visits each component once.
 
 # Algorithms
 
-There is a wrapper around the board and the vertices, it is the `Board` object,
-the most involved of the methods is `putPiece`, that fires when a user clicks
-on a spot on the board.
-
-_Steps in italics have yet to be implemented_
-
-When the user clicks on a spot on the board, the following things happen:
-
- 1. The mouse coordinates are rounded to the nearest intersection on the board.
-    This is done with the `Board.pointToIndex` method.
- 2. If the vertex at the nearest intersection is colored `null`, then the
-    it is set to `Board.currentColor`.
- 3. If any of the four neighbors (North, West, South or East) are the same
-    color, edges are added to include the new vertex in the connected component
-    of similarly colored pieces.
- 4. _The connected components are found using a Breadth-First Search_
- 5. _For each connected component, if there are no liberties (empty spots on the
-     boundary) the component will be deleted, and all the colors set to `null`._
+  - [BFS (Breadth-First Search)](https://github.com/tlehman/go-websocket/blob/master/bfs.md) to find connected components of pieces.
