@@ -116,18 +116,23 @@ var Board = {
         // find connected components
         var connComp = new ComponentMap(graph);
 
+        // clear debug output
+        console.clear();
+
         // iterate over components, destroying those with no liberties
-        var compIter = connComp.eachComponent();
-        for(var comp = compIter(); comp !== null; comp = compIter()) {
+        var compIter = connComp.eachComponent(function(comp) {
+            // debug output
+            console.log(comp.toString());
+
             var numLibs = 0;
             // compute liberties of component
 
             // destroy components with liberties = 0
             if(numLibs === 0) {
-                this.destroyPiecesInComponent(comp);
+                //this.destroyPiecesInComponent(comp);
             }
 
-        }
+        });
         // add appropriate number of points to currentColor's score
 
         this.clear();

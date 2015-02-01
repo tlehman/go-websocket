@@ -61,13 +61,8 @@ var ComponentMap = function(graph) {
 
     return {
         numberComponents: components.cardinality(),
-        eachComponent: function() {
-            var i = 0;
-            return function() {
-                if(i >= components.cardinality()) { return null; }
-
-                return components[i++];
-            }
+        eachComponent: function(fn) {
+            components.each(fn);
         }
     }
 }
