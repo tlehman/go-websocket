@@ -101,7 +101,48 @@ var Board = {
         return Math.round((p-this.offset)/this.spacing);
     },
 
+    destroyVertexAtPair: function(pair) {
+        var idx = pair.left(),
+            idy = pair.right();
+        var grid = this.grid;
+        var vertex = grid[idx][idy];
+
+        // check that piece is actually there
+        if(vertex.color === null ) { return; }
+
+        vertex.destroy();
+    },
+
     destroyPiecesInComponent: function(comp) {
+        comp.each(function(vertex) {
+            Board.destroyVertexAtPair(vertex);
+        });
+    },
+
+    /* neighborhoodOfVertex takes a pair and outputs a set of 
+       Vertex objects that are next to it
+
+            x-1   x   x+1
+        y-1  .    .    .
+
+         y   .    p    .  <--- p is the input pair, specifying
+                               the position, and all the Vertices
+        y+1  .    .    .       denoted . are returned, minus boundary
+
+
+     */
+    neighborhoodOfVertex: function(pair) {
+        var neighborhood = new Set;
+    
+        for(var x = pair.left()-1; x < pair.left()+1; x++) {
+            for(var y = pair.right()-1; y < pair.right()+1; y++) {
+                if(x >= 0 && x < Board.count && y >= 0 && y < Board.count) {
+                    neighborhood.add(Board.grid[x][y]);
+                }
+            }
+        }
+
+        return neighborhood;
     },
 
     putPiece: function(x,y) {
@@ -130,7 +171,14 @@ var Board = {
             console.log(comp.toString());
 
             var numLibs = 0;
-            // compute liberties of component
+            // computes the liberties of each component
+            comp.each(function(pair) {
+                Board.neighborhoodOfVertex(pair).each(function(vertex) {
+                    if(vertex.isEmpty()) {
+                        numLibs += 1;
+                    }
+                });
+            });
 
             // destroy components with liberties = 0
             if(numLibs === 0) {
@@ -187,16 +235,6 @@ var Board = {
         }
 
         this.toggleCurrentColor();
-    },
-
-    destroyVertexAtIndex: function(idx,idy) {
-        var grid = this.grid;
-        var vertex = grid[idx][idy];
-
-        // check that piece is actually there
-        if(vertex.color === null ) { return; }
-
-        vertex.destroy();
     }
 }
 
