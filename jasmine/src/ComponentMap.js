@@ -61,6 +61,9 @@ var ComponentMap = function(graph) {
 
     return {
         numberComponents: components.cardinality(),
+        choose: function() {
+            return components.choose();
+        },
         eachComponent: function(fn) {
             components.each(fn);
         }

@@ -11,6 +11,10 @@ var Board = {
     offset: 20,             /* 20px padding on upper left */
     pieceRadius: 15,
     currentColor: 'black',
+    scores: {
+        black: 0,
+        white: 0
+    },
     graph: new Graph(),     /* graph represents adjacent isochromatic pieces */
 
     canvas: document.getElementById('canvas'),
@@ -191,11 +195,21 @@ var Board = {
                 });
             });
 
+            // find color of component
+            var p = comp.choose();
+            var color = Board.grid[p.left()][p.right()].color;
+
             // debug output
             console.log(comp.toString() + " : liberties = " + numLibs);
 
             // destroy components with liberties = 0
             if(numLibs === 0) {
+                // count size of captured group
+                if(color == "white") {
+                    Board.scores.black += comp.cardinality();
+                } else {
+                    Board.scores.white += comp.cardinality();
+                }
                 destroyPiecesInComponent(comp);
             }
 
@@ -210,6 +224,8 @@ var Board = {
 
     updateScores: function() {
         document.getElementById("currentColor").innerText = this.currentColor;
+        document.getElementById("blackScore").innerHTML = this.scores.black;
+        document.getElementById("whiteScore").innerHTML = this.scores.white;
     },
 
     formatPoint: function(point) {

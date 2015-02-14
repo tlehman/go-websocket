@@ -48,6 +48,12 @@ var Set = function(elements) {
         equals: function(other) {
             return this.subset(other) && other.subset(this);
         },
+        choose: function() { // Axiom of Choice not needed for finite sets.
+            if(elements.length == 0) {
+                return null; // null or undefined?
+            }
+            return elements[0];
+        },
         each: function(fn) {
             for(var i = 0; i < elements.length; i++) {
                 fn(elements[i]);
