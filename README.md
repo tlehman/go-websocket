@@ -26,8 +26,9 @@ TODO:
  - [x] Add Set#remove
  - [x] Find neighborhood of vertex
  - [x] Implement BFS to find connected components
- - [ ] Define libertiesCount() function to count the liberties of a component
- - [ ] Add scoring rules to program
+ - [x] Define libertiesCount() function to count the liberties of a component
+ - [ ] Handle components of size 1
+ - [x] Add scoring rules to program
  - [ ] Save state in localStorage
  - [ ] Add clear board button
  - [ ] Hook up a WebSocket (before this, learn how to WebSocket)
@@ -39,10 +40,11 @@ has a `color` property.
 
 The `color` defaults to `null`, but can be switched to `black` or `white`.
 
-Each vertex has up to four edges, which can connect to adjacent vertices of the
-same color. This defines an implicit graph.
+Each vertex is represented as a `Pair` of coordinates, and has up to four neighbors, 
+for each pair of adjacent vertices, we use a `Set` to represent an undirected edge 
+in a `Graph`.
 
-Using the implicit graph, a `ComponentMap` object is used to find the connected 
+Using the graph, a `ComponentMap` object is used to find the connected 
 components, then expose an iterator that visits each component once.
 
 ![edges only to adjacent pieces of same color](img/edges.png)

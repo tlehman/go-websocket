@@ -130,18 +130,31 @@ var Board = {
         y+1  .    .    .       denoted . are returned, minus boundary
 
 
+        Since this is taking place in a 2-dimensional space, there 
+        are 2^2 = 4 possible neighbors. No loop needed, just 4 cases.
      */
     neighborhoodOfVertex: function(pair) {
         var neighborhood = new Set;
     
-        for(var x = pair.left()-1; x < pair.left()+1; x++) {
-            for(var y = pair.right()-1; y < pair.right()+1; y++) {
-                if(x >= 0 && x < Board.count && y >= 0 && y < Board.count) {
-                    neighborhood.add(Board.grid[x][y]);
-                }
-            }
-        }
+        var x = pair.left(),
+            y = pair.right();
 
+        // West
+        if(x > 0) {
+            neighborhood.add(Board.grid[x-1][y]);
+        }
+        // North
+        if(y > 0) {
+            neighborhood.add(Board.grid[x][y-1]);
+        }
+        // East
+        if(x < Board.count) {
+            neighborhood.add(Board.grid[x+1][y]);
+        }
+        // South
+        if(y < Board.count) {
+            neighborhood.add(Board.grid[x][y+1]);
+        }
         return neighborhood;
     },
 
@@ -167,8 +180,6 @@ var Board = {
 
         // iterate over components, destroying those with no liberties
         var compIter = connComp.eachComponent(function(comp) {
-            // debug output
-            console.log(comp.toString());
 
             var numLibs = 0;
             // computes the liberties of each component
@@ -179,6 +190,9 @@ var Board = {
                     }
                 });
             });
+
+            // debug output
+            console.log(comp.toString() + " : liberties = " + numLibs);
 
             // destroy components with liberties = 0
             if(numLibs === 0) {
