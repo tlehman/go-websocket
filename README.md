@@ -27,8 +27,9 @@ TODO:
  - [x] Find neighborhood of vertex
  - [x] Implement BFS to find connected components
  - [x] Define libertiesCount() function to count the liberties of a component
- - [ ] Handle components of size 1
+ - [x] Handle components of size 1
  - [x] Add scoring rules to program
+ - [ ] Make grid size variable
  - [ ] Save state in localStorage
  - [ ] Add clear board button
  - [ ] Hook up a WebSocket (before this, learn how to WebSocket)

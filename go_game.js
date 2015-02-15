@@ -152,11 +152,11 @@ var Board = {
             neighborhood.add(Board.grid[x][y-1]);
         }
         // East
-        if(x < Board.count) {
+        if(x+1 < Board.count) {
             neighborhood.add(Board.grid[x+1][y]);
         }
         // South
-        if(y < Board.count) {
+        if(y+1 < Board.count) {
             neighborhood.add(Board.grid[x][y+1]);
         }
         return neighborhood;
@@ -251,18 +251,32 @@ var Board = {
         var south = (idy+1 < c) ? grid[idx][idy+1] : null;
         var west  = (idx-1 >= 0) ? grid[idx-1][idy] : null;
 
+        // number of neighbors of same color
+        var numNeighbors = 0;
+
+        // If new vertex is adjacent to another of the same color
         if(north && north.color == v.color) {
             this.graph.addEdge(new Set([v.pair, north.pair]));
+            numNeighbors += 1;
         }
         if(east && east.color == v.color) {
             this.graph.addEdge(new Set([v.pair, east.pair]));
+            numNeighbors += 1;
         }
         if(south && south.color == v.color) {
             this.graph.addEdge(new Set([v.pair, south.pair]));
+            numNeighbors += 1;
         }
         if(west && west.color == v.color) {
             this.graph.addEdge(new Set([v.pair, west.pair]));
+            numNeighbors += 1;
         }
+
+        // If new vertex is not adjacent to any of the same color
+        if(numNeighbors == 0) {
+            this.graph.addVertex(new Pair(idx,idy));
+        }
+
 
         this.toggleCurrentColor();
     }
