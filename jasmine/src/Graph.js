@@ -21,6 +21,9 @@ var Graph = function(edges) {
                 _vertices.add(v);
             });
         },
+        addVertex: function(pair) {
+            _vertices.add(pair);
+        },
         neighborsOf: function(v) {
             var neighbors = new Set([]);
             // union all of the edges containing v, subtract {v}
