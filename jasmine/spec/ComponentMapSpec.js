@@ -27,5 +27,12 @@ describe("ComponentMap", function() {
         var connComp = new ComponentMap(graph);
         expect(connComp.numberComponents).toEqual(2);
     });
+
+    it("treats single vertices with no edges as a component", function() {
+        var p = new Pair(8,8);
+        graph.addVertex(p);
+        var connComp = new ComponentMap(graph);
+        expect(connComp.numberComponents).toEqual(3);
+    });
 });
 
