@@ -9,7 +9,7 @@ var Board = {
     count: 9,               /* 9x9 board */
     width: 400,             /* 500px square image */
     offset: 20,             /* 20px padding on upper left */
-    pieceRadius: 15,
+    pieceRadius: 15,        /* default (overridden if user-supplied count/width given */
     currentColor: 'black',
     scores: {
         black: 0,
@@ -20,6 +20,19 @@ var Board = {
     canvas: document.getElementById('canvas'),
 
     init: function() {
+        // if ?c=N is passed in, set count to N
+        var match_count = (/c=(\d+)/).exec(window.location.search);
+        var match_width = (/w=(\d+)/).exec(window.location.search);
+        if(match_count) {
+            this.count = Number(match_count[1]);
+        }
+        if(match_width) {
+            this.width = Number(match_width[1]);
+        }
+        if(match_count || match_width) {
+            this.pieceRadius = this.width/(this.count*2)-1;
+        }
+
         this.canvas.width = this.width + this.offset*2;
         this.canvas.height = this.width + this.offset*2;
         this.canvas.addEventListener("click", function(event) { handleMouseInput(event)});
