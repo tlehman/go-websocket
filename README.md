@@ -1,5 +1,7 @@
 # <a href="https://en.wikipedia.org/wiki/Go_(game)">Go</a> over WebSocket
 
+[![Join the chat at https://gitter.im/tlehman/go-websocket](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tlehman/go-websocket?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Go is an ancient game that involves two players competing on a grid for space.
 The goal is to surround the largest amount of area. See the above Wikipedia
 article for more information.
