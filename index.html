@@ -17,30 +17,21 @@
   </head>
   <body>
     <div style="float: right">
-        <label for="board-dimensions">Board dimensions:</label>
-        <select id="board-dimensions">
+        <label for="board-count">Board count:</label>
+        <select id="board-count">
             <option value="9">9x9</option>
             <option value="13">13x13</option>
             <option value="19">19x19</option>
         </select>
-
-        <label for="board-size">Board size:</label>
-        <select id="board-size">
-            <option value="200">200x200</option>
-            <option value="400" selected>400x400</option>
-            <option value="600">600x600</option>
-        </select>
     </div>
 
     <script type="text/javascript">
-    $("#board-dimensions").change(function() {
-        var dimensions = this.value;
-        window.location.search = "?c="+dimensions;
-    });
+    //$("#board-count").val(Board.count + "x" Board.count);
 
-    $("#board-size").change(function() {
-        var size = this.value;
-        window.location.search += "&w="+size;
+    $("#board-count").change(function() {
+        var count = this.value;
+        var width = Math.round(Board.width/Board.count)*count;
+        window.location.search = "?c=" + count + "&w=" + width;
     });
     </script>
 

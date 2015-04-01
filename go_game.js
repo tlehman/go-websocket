@@ -232,7 +232,6 @@ var Board = {
         this.clear();
         this.drawLines();
         this.drawPieces();
-        this.updateScores();
     },
 
     updateScores: function() {
