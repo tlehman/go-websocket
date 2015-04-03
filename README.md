@@ -32,7 +32,8 @@ TODO:
  - [x] Make grid size variable
  - [ ] Save state in localStorage
  - [ ] Add clear board button
- - [ ] Hook up a WebSocket (before this, learn how to WebSocket)
+ - [ ] Hook up a WebSocket
+ - [ ] set up backend
 
 # Data Structures
 
