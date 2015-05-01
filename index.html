@@ -26,7 +26,9 @@
     </div>
 
     <script type="text/javascript">
-    //$("#board-count").val(Board.count + "x" Board.count);
+    $(document).ready(function() {
+        $("#board-count").val(Board.count);
+    });
 
     $("#board-count").change(function() {
         var count = this.value;
@@ -35,7 +37,11 @@
     });
     </script>
 
-    <canvas id="canvas"></canvas>
+    <div style="display:table-cell;">
+        <div style="margin-left:auto;margin-right:auto;">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
 
     <div id="scores">
       <table>

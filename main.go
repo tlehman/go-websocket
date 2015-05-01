@@ -25,34 +25,56 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
+	//"github.com/jinzhu/gorm"
+	//"github.com/lib/pq"
 	"io"
 	"os"
+	"time"
 )
 
 type User struct {
-	id   int
-	name string
+	ID        int
+	Name      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
 }
 
 type Match struct {
-	id          int
-	userIdBlack int
-	userIdWhite int
+	ID          int
+	UserIdBlack int
+	UserIdWhite int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   time.Time
 }
 
 const Black int = 0
 const White int = 1
 
 type State struct {
-	matchId int
-	userId  int
-	x       int
-	y       int
-	color   int
+	MatchId   int
+	UserId    int
+	X         int
+	Y         int
+	Color     int
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
 }
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
+	/*
+		db, err := gorm.Open("postgres", "user=hal dbname=gogame sslmode=disable")
+		check(err)
+
+		// Get database connection handle
+		db.DB()
+		db.CreateTable(&User{})
+	*/
+
 	var line string
 	var err error
 
@@ -67,14 +89,8 @@ func main() {
 	}
 }
 
-func loadUsersFromDb() []User {
-	return make([]User, 10)
-}
-
-func loadMatcesFromDb() []Match {
-	return make([]Match, 10)
-}
-
-func loadStatesFromDb() []State {
-	return make([]State, 10)
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
