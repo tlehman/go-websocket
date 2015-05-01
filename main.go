@@ -25,10 +25,8 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"log"
-	//"github.com/jinzhu/gorm"
-	//"github.com/lib/pq"
 	"io"
+	"log"
 	"os"
 	"time"
 )
@@ -41,21 +39,27 @@ type User struct {
 	DeletedAt time.Time
 }
 
+// a Match is between two Users,
 type Match struct {
-	ID          int
-	UserIdBlack int
-	UserIdWhite int
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	DeletedAt   time.Time
+	ID        int
+	Black     User
+	BlackID   int
+	White     User
+	WhiteID   int
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
 }
 
 const Black int = 0
 const White int = 1
 
-type State struct {
-	MatchId   int
-	UserId    int
+// a StateChange records when the state changes
+type StateChange struct {
+	Match     Match
+	MatchID   int
+	User      User
+	UserID    int
 	X         int
 	Y         int
 	Color     int
@@ -66,14 +70,6 @@ type State struct {
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	/*
-		db, err := gorm.Open("postgres", "user=hal dbname=gogame sslmode=disable")
-		check(err)
-
-		// Get database connection handle
-		db.DB()
-		db.CreateTable(&User{})
-	*/
 
 	var line string
 	var err error
